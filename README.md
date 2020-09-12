@@ -9,6 +9,7 @@ Simple to-do-app created with **React.js**, **Firebase** and **Material-UI**.
 
 ## Table of contents
 * [General info](#general-info)
+* [Features](#features)
 * [Technologies](#technologies)
 * [Setup](#setup)
 
