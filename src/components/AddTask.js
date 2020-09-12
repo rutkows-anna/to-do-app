@@ -1,23 +1,22 @@
 import React from "react";
-import { Button, TextField } from '@material-ui/core/';
-import AddIcon from '@material-ui/icons/Add';
-import { withStyles } from '@material-ui/core/styles';
+import { Button, TextField } from "@material-ui/core/";
+import AddIcon from "@material-ui/icons/Add";
+import { withStyles } from "@material-ui/core/styles";
 import firebase from "firebase";
 import { DATABASE_URL } from "../index";
 
-
-const styles = theme => ({
+const styles = (theme) => ({
   form: {
-    width: '100%',
-    maxWidth: 600, 
+    width: "100%",
+    maxWidth: 600,
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(2),
   },
   input: {
-    width: '100%',
+    width: "100%",
     marginBottom: theme.spacing(3),
-  }
-})
+  },
+});
 
 class AddTask extends React.Component {
   state = {
@@ -56,30 +55,29 @@ class AddTask extends React.Component {
     return (
       <>
         <form
-        className={classes.form}
+          className={classes.form}
           noValidate
           autoComplete="off"
           onSubmit={this.handleOnSubmit}
         >
-           <TextField
+          <TextField
             className={classes.input}
             variant="outlined"
             color="secondary"
-            size='small'
+            size="small"
             onChange={this.handleOnChange}
             onKeyUp={this.handleOnKeyUp}
             value={this.state.task}
+          />
 
-  />
-        
           <Button
-          className={classes.input}
+            className={classes.input}
             type="submit"
-            variant="contained" 
+            variant="contained"
             color="secondary"
-            startIcon={<AddIcon/>}
+            startIcon={<AddIcon />}
           >
-             Dodaj zadanie
+            Dodaj zadanie
           </Button>
         </form>
       </>

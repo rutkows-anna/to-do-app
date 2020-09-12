@@ -18,9 +18,6 @@ const firebaseConfig = {
 export const DATABASE_URL = firebaseConfig.databaseURL;
 firebase.initializeApp(firebaseConfig);
 
-ReactDOM.render(
-    <App />,
-  document.getElementById("root")
-);
+ReactDOM.render(<App />, document.getElementById("root"));
 
 serviceWorker.unregister();
