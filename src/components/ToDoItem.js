@@ -55,13 +55,14 @@ class ToDoItem extends React.Component {
       () => {
         const user = firebase.auth().currentUser;
         fetch(`${DATABASE_URL}/users/${user.uid}/todo/${this.props.id}.json`, {
-          method: "PUT",
-          body: JSON.stringify(this.state),
+          method: "PATCH",
+          body: JSON.stringify(this.state.done),
         }).then(() => {
           this.props.onFetchTasks();
         });
       }
     );
+    console.log(this.state.done)
   };
 
   handleOnEditClick = (event) => {
