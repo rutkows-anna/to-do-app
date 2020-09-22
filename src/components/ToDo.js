@@ -2,7 +2,7 @@ import React from "react";
 import AddTask from "./AddTask";
 import ToDoItem from "./ToDoItem";
 import ToDoItemEdit from "./ToDoItemEdit";
-import { Tooltip, Fab } from "@material-ui/core/";
+import { Tooltip, Fab, CircularProgress } from "@material-ui/core/";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { withStyles } from "@material-ui/core/styles";
 import firebase from "firebase";
@@ -16,11 +16,15 @@ const styles = (theme) => ({
     marginBottom: theme.spacing(4),
     boxShadow: "0 .5rem 1rem rgba(0,0,0,0.15)",
   },
+  loader: {
+    marginBottom: theme.spacing(2),
+  },
 });
 class ToDo extends React.Component {
   state = {
     todo: [],
     editId: null,
+    loading: true,
   };
 
   fetchTasks = () => {
@@ -38,6 +42,7 @@ class ToDo extends React.Component {
           : [];
         this.setState({
           todo: todoList,
+          loading: false,
         });
       });
   };
@@ -72,22 +77,26 @@ class ToDo extends React.Component {
     return (
       <>
         <AddTask onFetchTasks={this.fetchTasks} />
-        {this.state.todo.map((todoItem) =>
-          todoItem.id === this.state.editId ? (
-            <ToDoItemEdit
-              key={todoItem.id}
-              onClose={this.resetEditId}
-              onSave={this.handleItemSave}
-              onFetchTasks={this.fetchTasks}
-              {...todoItem}
-            />
-          ) : (
-            <ToDoItem
-              key={todoItem.id}
-              onFetchTasks={this.fetchTasks}
-              onEdit={this.handleItemEdit}
-              {...todoItem}
-            />
+        {this.state.loading ? (
+          <CircularProgress color="secondary" className={classes.loader} />
+        ) : (
+          this.state.todo.map((todoItem) =>
+            todoItem.id === this.state.editId ? (
+              <ToDoItemEdit
+                key={todoItem.id}
+                onClose={this.resetEditId}
+                onSave={this.handleItemSave}
+                onFetchTasks={this.fetchTasks}
+                {...todoItem}
+              />
+            ) : (
+              <ToDoItem
+                key={todoItem.id}
+                onFetchTasks={this.fetchTasks}
+                onEdit={this.handleItemEdit}
+                {...todoItem}
+              />
+            )
           )
         )}
         <Tooltip title="Wyloguj się">

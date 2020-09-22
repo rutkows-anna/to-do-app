@@ -1,13 +1,10 @@
 import React from "react";
 import ToDo from "./components/ToDo";
 import Nav from "./components/Nav";
-import Container from "@material-ui/core/Container";
+import { Container, CircularProgress } from "@material-ui/core/";
 import { withStyles } from "@material-ui/core/styles";
 import SignIn from "./components/SignIn";
 import firebase from "firebase";
-
-const Logged = "Logged";
-const Login = "Login";
 
 const styles = (theme) => ({
   toDoApp: {
@@ -25,23 +22,20 @@ const styles = (theme) => ({
 class App extends React.Component {
   state = {
     user: null,
-  };
-
-  handleLogin = () => {
-    this.setState({
-      user: Login,
-    });
+    loading: true,
   };
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       if (firebase.auth().currentUser) {
         this.setState({
-          user: Logged,
+          user: true,
+          loading: false,
         });
       } else {
         this.setState({
-          user: null,
+          user: false,
+          loading: false,
         });
       }
     });
@@ -53,10 +47,12 @@ class App extends React.Component {
       <>
         <Container className={classes.toDoApp}>
           <Nav />
-          {this.state.user === Logged ? (
+          {this.state.loading ? (
+            <CircularProgress color="secondary" className={classes.loader} />
+          ) : this.state.user ? (
             <ToDo />
           ) : (
-            <SignIn onLogin={this.handleLogin} />
+            <SignIn />
           )}
         </Container>
       </>
