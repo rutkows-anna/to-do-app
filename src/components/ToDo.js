@@ -95,8 +95,8 @@ class ToDo extends React.Component {
     return (
       <>
         <AddTask onFetchTasks={this.fetchTasks} />
-        <Chip label="zrobione" clickable color="secondary" icon={<DoneIcon />} onClick={this.handleShowDone} />
-        <Chip label="niezrobione" clickable color="secondary" icon={<DoneIcon />} onClick={this.handleShowUndone} />
+        <Chip label="ZROBIONE" clickable color={this.state.showDone ? "secondary" : "default"} icon={<DoneIcon />} onClick={this.handleShowDone} onDelete={this.handleShowDone} />
+        <Chip label="NIEZROBIONE" clickable color={this.state.showUndone ? "secondary" : "default"} icon={<DoneIcon />} onClick={this.handleShowUndone} onDelete={this.handleShowUndone}/>
         {this.state.loading ? (
           <CircularProgress color="secondary" className={classes.loader} />
         ) : (
