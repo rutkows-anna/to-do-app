@@ -30,12 +30,6 @@ class AddTask extends React.Component {
     });
   };
 
-  handleOnKeyUp = (event) => {
-    if (event.key === "Enter") {
-      this.handleOnSubmit();
-    }
-  };
-
   handleOnSubmit = (event) => {
     event.preventDefault();
     const user = firebase.auth().currentUser;
@@ -49,6 +43,12 @@ class AddTask extends React.Component {
       });
     });
   };
+  
+ handleOnKeypress = (event) => {
+  if (event.keyCode === 13) {
+    this.handleOnSubmit();
+  }
+};
 
   render() {
     const { classes } = this.props;
@@ -66,8 +66,8 @@ class AddTask extends React.Component {
             color="secondary"
             size="small"
             onChange={this.handleOnChange}
-            onKeyUp={this.handleOnKeyUp}
             value={this.state.task}
+            onKeyPress={this.handleOnKeypress}
           />
 
           <Button

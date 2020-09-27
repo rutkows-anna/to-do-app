@@ -48,6 +48,7 @@ class ToDoItem extends React.Component {
     });
   };
   handleOnDoneTask = (event) => {
+
     this.setState(
       {
         done: !this.state.done,

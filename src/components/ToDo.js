@@ -2,8 +2,9 @@ import React from "react";
 import AddTask from "./AddTask";
 import ToDoItem from "./ToDoItem";
 import ToDoItemEdit from "./ToDoItemEdit";
-import { Tooltip, Fab, CircularProgress } from "@material-ui/core/";
+import { Tooltip, Fab, CircularProgress, Chip } from "@material-ui/core/";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import DoneIcon from "@material-ui/icons/Done";
 import { withStyles } from "@material-ui/core/styles";
 import firebase from "firebase";
 import { DATABASE_URL } from "../index";
@@ -19,12 +20,17 @@ const styles = (theme) => ({
   loader: {
     marginBottom: theme.spacing(2),
   },
+  signOut: {
+    margin: "1%",
+  }
 });
 class ToDo extends React.Component {
   state = {
     todo: [],
     editId: null,
     loading: true,
+    showDone: true,
+    showUndone: true,
   };
 
   fetchTasks = () => {
@@ -59,6 +65,18 @@ class ToDo extends React.Component {
     });
   };
 
+  handleShowDone = () => {
+    this.setState({
+      showDone: !this.state.showDone,
+    })
+  }
+
+  handleShowUndone = () => {
+    this.setState({
+      showUndone: !this.state.showUndone,
+    })
+  }
+
   handleItemSave = () => {
     this.fetchTasks();
     this.resetEditId();
@@ -77,10 +95,22 @@ class ToDo extends React.Component {
     return (
       <>
         <AddTask onFetchTasks={this.fetchTasks} />
+        <Chip label="zrobione" clickable color="secondary" icon={<DoneIcon />} onClick={this.handleShowDone} />
+        <Chip label="niezrobione" clickable color="secondary" icon={<DoneIcon />} onClick={this.handleShowUndone} />
         {this.state.loading ? (
           <CircularProgress color="secondary" className={classes.loader} />
         ) : (
-          this.state.todo.map((todoItem) =>
+          this.state.todo
+          .filter((todoItem) => {
+            if (this.state.showDone && this.state.showUndone) {
+              return todoItem
+            } if (this.state.showDone) {
+              return todoItem.done === true
+            } else if (this.state.showUndone) {
+              return todoItem.done === false
+            }
+          }) 
+          .map((todoItem) =>
             todoItem.id === this.state.editId ? (
               <ToDoItemEdit
                 key={todoItem.id}
@@ -102,7 +132,7 @@ class ToDo extends React.Component {
         <Tooltip title="Wyloguj się">
           <Fab
             color="secondary"
-            className={classes.icon}
+            className={classes.signOut}
             onClick={this.handleOnSignOutClick}
           >
             <ExitToAppIcon />
