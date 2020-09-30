@@ -6,13 +6,13 @@ import * as serviceWorker from "./serviceWorker";
 import firebase from "firebase";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB1BMryuc2oO_HKgFwhwUCSS4nAHRINpV0",
-  authDomain: "test-f0a98.firebaseapp.com",
-  databaseURL: "https://test-f0a98.firebaseio.com",
-  projectId: "test-f0a98",
-  storageBucket: "test-f0a98.appspot.com",
-  messagingSenderId: "378065021114",
-  appId: "1:378065021114:web:d53eb6c0e37dc4b271ba83"
+  apiKey: "AIzaSyBqX0NLqBomHbVxppsvUju6myikZ7zJpqU",
+  authDomain: "todoapp-36408.firebaseapp.com",
+  databaseURL: "https://todoapp-36408.firebaseio.com",
+  projectId: "todoapp-36408",
+  storageBucket: "todoapp-36408.appspot.com",
+  messagingSenderId: "20656447326",
+  appId: "1:20656447326:web:a8975420dab8f64293b9cf",
 };
 
 export const DATABASE_URL = firebaseConfig.databaseURL;

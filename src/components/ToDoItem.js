@@ -48,7 +48,6 @@ class ToDoItem extends React.Component {
     });
   };
   handleOnDoneTask = (event) => {
-
     this.setState(
       {
         done: !this.state.done,
@@ -57,11 +56,10 @@ class ToDoItem extends React.Component {
         const user = firebase.auth().currentUser;
         fetch(`${DATABASE_URL}/users/${user.uid}/todo/${this.props.id}.json`, {
           method: "PATCH",
-          body: JSON.stringify({done: this.state.done}),
+          body: JSON.stringify({ done: this.state.done }),
         }).then(() => {
           this.props.onFetchTasks();
         });
-        console.log(this.state.done)
       }
     );
   };

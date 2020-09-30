@@ -9,7 +9,7 @@ import firebase from "firebase";
 const styles = (theme) => ({
   toDoApp: {
     padding: "2%",
-    width: "100%", 
+    width: "100%",
     minHeight: "100vh",
     display: "flex",
     justifyContent: "center",

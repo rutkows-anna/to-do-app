@@ -23,6 +23,7 @@ User can:
 * mark task as done or undone
 * edit task
 * delete task
+* sort tasks by done/undone
 
 ## Technologies
 Project is created with:

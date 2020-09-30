@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, TextField } from "@material-ui/core/";
+import { Button, TextField, Tooltip } from "@material-ui/core/";
 import AddIcon from "@material-ui/icons/Add";
 import { withStyles } from "@material-ui/core/styles";
 import firebase from "firebase";
@@ -9,12 +9,12 @@ const styles = (theme) => ({
   form: {
     width: "100%",
     maxWidth: 600,
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   input: {
     width: "100%",
-    marginBottom: theme.spacing(1),
+    marginBottom: theme.spacing(2),
   },
 });
 
@@ -43,12 +43,12 @@ class AddTask extends React.Component {
       });
     });
   };
-  
- handleOnKeypress = (event) => {
-  if (event.keyCode === 13) {
-    this.handleOnSubmit();
-  }
-};
+
+  handleOnKeypress = (event) => {
+    if (event.keyCode === 13) {
+      this.handleOnSubmit();
+    }
+  };
 
   render() {
     const { classes } = this.props;
@@ -60,15 +60,17 @@ class AddTask extends React.Component {
           autoComplete="off"
           onSubmit={this.handleOnSubmit}
         >
-          <TextField
-            className={classes.input}
-            variant="outlined"
-            color="secondary"
-            size="small"
-            onChange={this.handleOnChange}
-            value={this.state.task}
-            onKeyPress={this.handleOnKeypress}
-          />
+          <Tooltip title="Wpisz zadanie" placement="top-start">
+            <TextField
+              className={classes.input}
+              variant="outlined"
+              color="secondary"
+              size="small"
+              onChange={this.handleOnChange}
+              value={this.state.task}
+              onKeyPress={this.handleOnKeypress}
+            />
+          </Tooltip>
 
           <Button
             className={classes.input}

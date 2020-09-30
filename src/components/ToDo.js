@@ -4,8 +4,8 @@ import ToDoItem from "./ToDoItem";
 import ToDoItemEdit from "./ToDoItemEdit";
 import { Tooltip, Fab, CircularProgress, Chip } from "@material-ui/core/";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import { withStyles } from "@material-ui/core/styles";
 import firebase from "firebase";
 import { DATABASE_URL } from "../index";
@@ -24,12 +24,15 @@ const styles = (theme) => ({
   chips: {
     width: "100%",
     marginBottom: theme.spacing(5),
-    display: 'flex',
-    justifyContent: 'space-evenly'
+    display: "flex",
+    justifyContent: "center",
+  },
+  chip: {
+    margin: theme.spacing(1),
   },
   signOut: {
     margin: "1%",
-  }
+  },
 });
 class ToDo extends React.Component {
   state = {
@@ -75,26 +78,26 @@ class ToDo extends React.Component {
   handleShowDone = () => {
     this.setState({
       showDone: true,
-    })
-  }
+    });
+  };
 
   handleShowUndone = () => {
     this.setState({
       showUndone: true,
-    })
-  }
+    });
+  };
 
   handleDeleteShowDone = () => {
     this.setState({
       showDone: false,
-    })
-  }
+    });
+  };
 
   handleDeleteShowUndone = () => {
     this.setState({
       showUndone: false,
-    })
-  }
+    });
+  };
 
   handleItemSave = () => {
     this.fetchTasks();
@@ -115,39 +118,61 @@ class ToDo extends React.Component {
       <>
         <AddTask onFetchTasks={this.fetchTasks} />
         <div className={classes.chips}>
-        <Chip size="small" label="ZROBIONE" clickable color={this.state.showDone ? "secondary" : "default"} icon={<CheckBoxIcon />} onClick={this.handleShowDone} onDelete={this.handleDeleteShowDone} />
-        <Chip size="small" label="NIEZROBIONE" clickable color={this.state.showUndone ? "secondary" : "default"} icon={<CheckBoxOutlineBlankIcon />} onClick={this.handleShowUndone} onDelete={this.handleDeleteShowUndone}/> </div>
+          <Chip
+            size="small"
+            label="ZROBIONE"
+            clickable
+            className={classes.chip}
+            color={this.state.showDone ? "secondary" : "default"}
+            icon={<CheckBoxIcon />}
+            onClick={this.handleShowDone}
+            onDelete={this.handleDeleteShowDone}
+          />
+          {"   "}
+          <Chip
+            size="small"
+            label="NIEZROBIONE"
+            clickable
+            className={classes.chip}
+            color={this.state.showUndone ? "secondary" : "default"}
+            icon={<CheckBoxOutlineBlankIcon />}
+            onClick={this.handleShowUndone}
+            onDelete={this.handleDeleteShowUndone}
+          />
+        </div>
         {this.state.loading ? (
           <CircularProgress color="secondary" className={classes.loader} />
         ) : (
           this.state.todo
-          .filter((todoItem) => {
-            if (this.state.showDone && this.state.showUndone) {
-              return todoItem
-            } if (this.state.showDone) {
-              return todoItem.done === true
-            } else if (this.state.showUndone) {
-              return todoItem.done === false
-            }
-          }) 
-          .map((todoItem) =>
-            todoItem.id === this.state.editId ? (
-              <ToDoItemEdit
-                key={todoItem.id}
-                onClose={this.resetEditId}
-                onSave={this.handleItemSave}
-                onFetchTasks={this.fetchTasks}
-                {...todoItem}
-              />
-            ) : (
-              <ToDoItem
-                key={todoItem.id}
-                onFetchTasks={this.fetchTasks}
-                onEdit={this.handleItemEdit}
-                {...todoItem}
-              />
+            .filter((todoItem) => {
+              if (this.state.showDone && this.state.showUndone) {
+                return true;
+              } else if (this.state.showDone) {
+                return todoItem.done === true;
+              } else if (this.state.showUndone) {
+                return todoItem.done === false;
+              } else {
+                return false;
+              }
+            })
+            .map((todoItem) =>
+              todoItem.id === this.state.editId ? (
+                <ToDoItemEdit
+                  key={todoItem.id}
+                  onClose={this.resetEditId}
+                  onSave={this.handleItemSave}
+                  onFetchTasks={this.fetchTasks}
+                  {...todoItem}
+                />
+              ) : (
+                <ToDoItem
+                  key={todoItem.id}
+                  onFetchTasks={this.fetchTasks}
+                  onEdit={this.handleItemEdit}
+                  {...todoItem}
+                />
+              )
             )
-          )
         )}
         <Tooltip title="Wyloguj się">
           <Fab
