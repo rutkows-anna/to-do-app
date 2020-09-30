@@ -5,7 +5,7 @@ Simple to-do-app created with **React.js**, **Firebase** and **Material-UI**.
 
 **Live demo**: _https://rutkows-anna.github.io/to-do-app/_
 
-![To do app mobile](./images/to-do-app-mobile.png)
+![To do app mobile](./images/to-do-app-mobile0.png)
 
 ## Table of contents
 * [General info](#general-info)
