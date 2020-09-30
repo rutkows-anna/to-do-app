@@ -14,7 +14,7 @@ const styles = (theme) => ({
   },
   input: {
     width: "100%",
-    marginBottom: theme.spacing(3),
+    marginBottom: theme.spacing(1),
   },
 });
 

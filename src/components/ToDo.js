@@ -4,7 +4,8 @@ import ToDoItem from "./ToDoItem";
 import ToDoItemEdit from "./ToDoItemEdit";
 import { Tooltip, Fab, CircularProgress, Chip } from "@material-ui/core/";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-import DoneIcon from "@material-ui/icons/Done";
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import { withStyles } from "@material-ui/core/styles";
 import firebase from "firebase";
 import { DATABASE_URL } from "../index";
@@ -19,6 +20,12 @@ const styles = (theme) => ({
   },
   loader: {
     marginBottom: theme.spacing(2),
+  },
+  chips: {
+    width: "100%",
+    marginBottom: theme.spacing(5),
+    display: 'flex',
+    justifyContent: 'space-evenly'
   },
   signOut: {
     margin: "1%",
@@ -67,13 +74,25 @@ class ToDo extends React.Component {
 
   handleShowDone = () => {
     this.setState({
-      showDone: !this.state.showDone,
+      showDone: true,
     })
   }
 
   handleShowUndone = () => {
     this.setState({
-      showUndone: !this.state.showUndone,
+      showUndone: true,
+    })
+  }
+
+  handleDeleteShowDone = () => {
+    this.setState({
+      showDone: false,
+    })
+  }
+
+  handleDeleteShowUndone = () => {
+    this.setState({
+      showUndone: false,
     })
   }
 
@@ -95,8 +114,9 @@ class ToDo extends React.Component {
     return (
       <>
         <AddTask onFetchTasks={this.fetchTasks} />
-        <Chip label="ZROBIONE" clickable color={this.state.showDone ? "secondary" : "default"} icon={<DoneIcon />} onClick={this.handleShowDone} onDelete={this.handleShowDone} />
-        <Chip label="NIEZROBIONE" clickable color={this.state.showUndone ? "secondary" : "default"} icon={<DoneIcon />} onClick={this.handleShowUndone} onDelete={this.handleShowUndone}/>
+        <div className={classes.chips}>
+        <Chip size="small" label="ZROBIONE" clickable color={this.state.showDone ? "secondary" : "default"} icon={<CheckBoxIcon />} onClick={this.handleShowDone} onDelete={this.handleDeleteShowDone} />
+        <Chip size="small" label="NIEZROBIONE" clickable color={this.state.showUndone ? "secondary" : "default"} icon={<CheckBoxOutlineBlankIcon />} onClick={this.handleShowUndone} onDelete={this.handleDeleteShowUndone}/> </div>
         {this.state.loading ? (
           <CircularProgress color="secondary" className={classes.loader} />
         ) : (
