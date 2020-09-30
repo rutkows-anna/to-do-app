@@ -1,10 +1,8 @@
 import React from "react";
 import {
-  Checkbox,
   Tooltip,
   List,
   ListItem,
-  ListItemIcon,
   ListItemText,
   ListItemSecondaryAction,
   TextField,
@@ -57,17 +55,7 @@ class ToDoItemEdit extends React.Component {
     return (
       <>
         <List className={classes.list}>
-          <ListItem dense button onClick={this.handleOnDoneTask}>
-            <ListItemIcon>
-              <Checkbox
-                edge="start"
-                tabIndex={-1}
-                disableRipple
-                type="checkbox"
-                onChange={this.handleOnDoneTask}
-                checked={this.state.done}
-              />
-            </ListItemIcon>
+          <ListItem dense>
             <ListItemText>
               <TextField
                 variant="outlined"
