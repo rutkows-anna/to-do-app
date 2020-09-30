@@ -8,8 +8,9 @@ import firebase from "firebase";
 
 const styles = (theme) => ({
   toDoApp: {
-    padding: "5%",
-    height: "100vh",
+    padding: "2%",
+    width: "100%",
+    minHeight: "100vh",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -45,7 +46,7 @@ class App extends React.Component {
     const { classes } = this.props;
     return (
       <>
-        <Container className={classes.toDoApp}>
+        <Container maxWidth="sm" className={classes.toDoApp}>
           <Nav />
           {this.state.loading ? (
             <CircularProgress color="secondary" className={classes.loader} />
